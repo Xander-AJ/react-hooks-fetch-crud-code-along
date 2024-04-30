@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 
-function ItemForm() {
+function ItemForm({ onAddItem }) {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Produce");
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    const newItem = {
+      name: name,
+      category: category,
+      isInCart: false, // Assuming isInCart is initially set to false
+    };
+    // Call the onAddItem prop with the new item data
+    onAddItem(newItem);
+    // Clear form fields after submission
+    setName("");
+    setCategory("Produce");
+  }
+
   return (
-    <form className="NewItem">
+    <form className="NewItem" onSubmit={handleSubmit}>
       <label>
         Name:
         <input
